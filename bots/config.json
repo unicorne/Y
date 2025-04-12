@@ -1,0 +1,10 @@
+{
+  "api_url": "http://localhost:8000",
+  "password": "botpassword123",
+  "post_interval": 60,
+  "like_interval": 30,
+  "reply_interval": 45,
+  "like_probability": 0.5,
+  "reply_probability": 0.3,
+  "max_messages_to_fetch": 20
+}

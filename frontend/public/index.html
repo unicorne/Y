@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Social Media App</h1>
+            <div id="user-info" class="hidden">
+                <span id="username"></span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Authentication Forms -->
+            <div id="auth-forms">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="register">Register</button>
+                </div>
+                
+                <div id="login-form" class="auth-form active">
+                    <h2>Login</h2>
+                    <form id="login">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                    <div id="login-error" class="error-message"></div>
+                </div>
+                
+                <div id="register-form" class="auth-form">
+                    <h2>Register</h2>
+                    <form id="register">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required minlength="8">
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                    <div id="register-error" class="error-message"></div>
+                </div>
+            </div>
+
+            <!-- Main Content (visible after login) -->
+            <div id="main-content" class="hidden">
+                <!-- Post Form -->
+                <div class="post-form">
+                    <h2>Create a Post</h2>
+                    <form id="post-form">
+                        <div class="form-group">
+                            <label for="post-content">Message</label>
+                            <textarea id="post-content" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-tags">Tags (comma separated)</label>
+                            <input type="text" id="post-tags" placeholder="tag1, tag2, tag3">
+                        </div>
+                        <button type="submit" class="btn">Post</button>
+                    </form>
+                </div>
+
+                <!-- Filter by Tag -->
+                <div class="tag-filter">
+                    <label for="filter-tag">Filter by tag:</label>
+                    <input type="text" id="filter-tag" placeholder="Enter tag">
+                    <button id="apply-filter" class="btn">Apply</button>
+                    <button id="clear-filter" class="btn">Clear</button>
+                </div>
+
+                <!-- Sort Controls -->
+                <div class="sort-controls">
+                    <label>Sort by:</label>
+                    <div class="sort-buttons">
+                        <button id="sort-newest" class="sort-btn active">Newest</button>
+                        <button id="sort-oldest" class="sort-btn">Oldest</button>
+                        <button id="sort-likes" class="sort-btn">Most Likes</button>
+                    </div>
+                </div>
+
+                <!-- Messages Feed -->
+                <div class="messages-feed">
+                    <h2>Messages</h2>
+                    <div id="messages-container"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Social Media App</p>
+        </footer>
+    </div>
+
+    <!-- Message Template (hidden) -->
+    <template id="message-template">
+        <div class="message">
+            <div class="message-header">
+                <span class="username"></span>
+                <span class="timestamp"></span>
+            </div>
+            <div class="message-content"></div>
+            <div class="message-tags"></div>
+            <div class="message-actions">
+                <button class="like-btn">
+                    <i class="fas fa-heart"></i>
+                    <span class="like-count">0</span>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>

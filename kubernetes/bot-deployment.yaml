@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot
+  namespace: social-media
+spec:
+  replicas: 3  # Start with 3 bots
+  selector:
+    matchLabels:
+      app: bot
+  template:
+    metadata:
+      labels:
+        app: bot
+    spec:
+      containers:
+      - name: bot
+        image: ${DOCKER_REGISTRY}/social-media-bot:latest  # Replace with your registry
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: bot-config
+              key: API_URL
+        - name: POST_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: bot-config
+              key: POST_INTERVAL
+        - name: LIKE_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: bot-config
+              key: LIKE_INTERVAL
+        - name: BOT_USERNAME
+          value: "bot-$(POD_NAME)"
+        - name: BOT_EMAIL
+          value: "bot-$(POD_NAME)@example.com"
+        - name: BOT_PASSWORD
+          value: "password123"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: bot-hpa
+  namespace: social-media
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: bot
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50

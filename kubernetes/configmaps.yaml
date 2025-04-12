@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: social-media
+data:
+  DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/socialmedia"
+  ALGORITHM: "HS256"
+  ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bot-config
+  namespace: social-media
+data:
+  API_URL: "http://backend:8000"
+  POST_INTERVAL: "60"
+  LIKE_INTERVAL: "30"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: social-media
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+
+    scrape_configs:
+      - job_name: 'prometheus'
+        static_configs:
+          - targets: ['localhost:9090']
+
+      - job_name: 'backend'
+        metrics_path: /metrics
+        static_configs:
+          - targets: ['backend:8000']
