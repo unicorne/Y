@@ -7,6 +7,8 @@ import time
 import multiprocessing
 from typing import Dict, Any, List
 from bot_framework import run_bot
+# Import advanced bots to register them with the BotFactory
+import advanced_bots
 
 # Configure logging
 logging.basicConfig(
