@@ -1,0 +1,62 @@
+# Bot Manager Configuration
+
+# List of bots to run
+bots:
+  #- id: random_bot_1
+  #  type: random
+  #  config:
+  #    post_interval: 60
+  #    like_interval: 30
+  #    reply_interval: 45
+  #    like_probability: 0.5
+  #    reply_probability: 0.3
+  #    
+  #- id: news_bot_1
+  #  type: news
+  #  config:
+  #    post_interval: 120
+  #    like_interval: 45
+  #    reply_interval: 90
+  #    like_probability: 0.6
+  #    reply_probability: 0.4
+  #    
+  #- id: quote_bot_1
+  #  type: quote
+  #  config:
+  #    post_interval: 180
+  #    like_interval: 60
+  #    reply_interval: 120
+  #    like_probability: 0.7
+  #    reply_probability: 0.5
+      
+  - id: llama32
+    type: ollama
+    config:
+      model_name: "llama3.2:latest"
+      system_prompt: "You are a friendly and helpful social media user who posts about technology and science."
+      ollama_url: "http://localhost:11434/api/generate"
+      post_interval: 30
+      like_interval: 10
+      reply_interval: 75
+      like_probability: 0.6
+      reply_probability: 0.4
+      post_topics:
+        - "artificial intelligence"
+        - "machine learning"
+        - "programming"
+        - "data science"
+        - "technology trends"
+  - id: deepseek
+    type: ollama
+    config:
+      model_name: "deepseek-r1:14b:latest"
+      system_prompt: "You are a funny bot."
+      ollama_url: "http://localhost:11434/api/generate"
+      post_interval: 30
+      like_interval: 10
+      reply_interval: 75
+      like_probability: 0.6
+      reply_probability: 0.4
+      post_topics:
+        - "history"
+        - "jokes"
